@@ -74,11 +74,11 @@ class ReleaseCommand(Command):
             help="Push changes when complete (for distributed VCS only)")
 
         self.parser.add_option(
-            '-R', '--no-release',
-            dest='no_release',
+            '-R', '--no-upload',
+            dest='no_upload',
             action='store_true',
             default=False,
-            help="Do not release to PyPi")
+            help="Do not upload to PyPi")
 
         self.parser.add_option(
             '-W', '--no-wheel',
@@ -112,7 +112,7 @@ class ReleaseCommand(Command):
             sys.exit(1)
 
         # Checking pypi login details are in place (if we need them)
-        if not options.no_release:
+        if not options.no_upload:
             print("Checking we have our PyPi login details in place")
             if not os.path.exists(os.path.expanduser("~/.pypirc")):
                 print("Could not find your ~/.pypirc file. See http://seed.readthedocs.org/en/latest/#pypi-registration for help.")
@@ -178,7 +178,7 @@ class ReleaseCommand(Command):
             setup_args = "sdist"
         else:
             setup_args = "sdist bdist_wheel"
-        if options.no_release:
+        if options.no_upload:
             if options.dry_run:
                 print("Would build dist but not release to PyPi")
             else:
@@ -197,7 +197,7 @@ class ReleaseCommand(Command):
             if not options.push:
                 print("We have made changes, but not pushed. Git users should probably do: ")
                 print("    git push && git push --tags")
-            if options.no_release:
+            if options.no_upload:
                 print("Package was not released (as requested). You can find your package here:")
                 print("    %s" % (self.project_dir / 'dist' / '%s-%s.tar.gz' % (self.project_name, next_version)))
     

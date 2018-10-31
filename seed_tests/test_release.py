@@ -25,7 +25,7 @@ class TestReleaseCommand(BaseSeedTest):
         self.create_package()
         self.write_meta_data()
         self.initial_release()
-        ok = self.run_with_coverage('release --no-release')
+        ok = self.run_with_coverage('release --no-upload')
         self.assertEqual(ok, 0)
         # bug release by default
         self.assertVersion('0.1.1')
@@ -34,7 +34,7 @@ class TestReleaseCommand(BaseSeedTest):
         self.create_package()
         self.write_meta_data()
         self.initial_release()
-        ok = self.run_with_coverage('release --bug --no-release')
+        ok = self.run_with_coverage('release --bug --no-upload')
         self.assertEqual(ok, 0)
         self.assertVersion('0.1.1')
 
@@ -42,7 +42,7 @@ class TestReleaseCommand(BaseSeedTest):
         self.create_package()
         self.write_meta_data()
         self.initial_release()
-        ok = self.run_with_coverage('release --minor --no-release')
+        ok = self.run_with_coverage('release --minor --no-upload')
         self.assertEqual(ok, 0)
         self.assertVersion('0.2.0')
 
@@ -50,7 +50,7 @@ class TestReleaseCommand(BaseSeedTest):
         self.create_package()
         self.write_meta_data()
         self.initial_release()
-        ok = self.run_with_coverage('release --major --no-release')
+        ok = self.run_with_coverage('release --major --no-upload')
         self.assertEqual(ok, 0)
         self.assertVersion('1.0.0')
 
@@ -58,7 +58,7 @@ class TestReleaseCommand(BaseSeedTest):
         self.create_package()
         self.write_meta_data()
         self.initial_release()
-        ok = self.run_with_coverage('release --release=2.3.4 --no-release')
+        ok = self.run_with_coverage('release --release=2.3.4 --no-upload')
         self.assertEqual(ok, 0)
         self.assertVersion('2.3.4')
 
@@ -67,7 +67,7 @@ class TestReleaseCommand(BaseSeedTest):
         os.system('git commit -m "Initial cømmit"')
         self.write_meta_data()
         self.initial_release()
-        ok = self.run_with_coverage('release --no-release')
+        ok = self.run_with_coverage('release --no-upload')
         self.assertEqual(ok, 0)
         # bug release by default
         self.assertVersion('0.1.1')

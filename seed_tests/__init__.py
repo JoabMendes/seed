@@ -47,7 +47,7 @@ class BaseSeedTest(unittest.TestCase):
             f.write(setup_py)
 
     def initial_release(self):
-        ok = os.system('seed release --initial --no-release')
+        ok = os.system('seed release --initial --no-upload')
 
     def assertVersion(self, version):
         version_path = os.path.join(self.pkg_dir, 'VERSION')

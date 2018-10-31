@@ -70,9 +70,11 @@ You can then do a release using::
     seed release --major  # A major version pump (i.e. 1.0.0)
     seed release          # Equivalent to seed release --bug
 
+    # If you just want to create the package files without uploading them to pypi.org,
+    # add the --no-upload flag to you release command.
+
     # More details about how to perform releases
     seed help release
-
 
 Packages with existing releases
 ----------------------------------
@@ -93,9 +95,11 @@ You can then release it using::
     seed release --major  # A major version pump (i.e. 1.0.0)
     seed release          # Equivalent to seed release --bug
 
+    # If you just want to create the package files without uploading them to pypi.org,
+    # add the --no-upload flag to you release command.
+
     # More details about how to perform releases
     seed help release
-
 
 Change log
 ==========
