@@ -21,13 +21,6 @@ class TestReleaseCommand(BaseSeedTest):
         ok = self.run_with_coverage('release --dry-run')
         self.assertEqual(ok, 0)
 
-    def test_initial(self):
-        self.create_package()
-        self.write_meta_data()
-        ok = self.run_with_coverage('release --initial --no-release')
-        self.assertEqual(ok, 0)
-        self.assertVersion('0.1.0')
-
     def test_no_args(self):
         self.create_package()
         self.write_meta_data()

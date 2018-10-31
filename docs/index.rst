@@ -17,7 +17,7 @@ easy. For example, the ``release`` command will:
 * Update CHANGES.txt with commit summaries & authors
 * Tag the release
 * Commit the above changes
-* Register/upload your package to PyPi
+* Register/upload your package to PyPi (Using `twine <https://twine.readthedocs.io/en/latest/>`_)
 
 Requires Python >= 2.7 or Python >= 3.4
 
@@ -35,9 +35,9 @@ To start releasing packages you are also going to need to
 `register with PyPi <http://pypi.python.org/pypi?%3Aaction=register_form>`_. Now place 
 your login details into ``~/.pypirc`` as follows::
 
-    [server-login]
-    username:yourusername
-    password:yourpassword
+    [pypi]
+    username = <username>
+    password = <password>
 
 .. note::
 
@@ -61,8 +61,8 @@ You can also pass a few options to the ``create`` command. See the help for deta
 
 You can then do a release using::
 
-    # For the first release you must use --initial:
-    seed release --initial
+    # Do a dry run to make sure everything looks right
+    seed release --dry-run
 
     # Subsequent releases can be done via ONE of:
     seed release --bug    # A bug version pump (i.e. 0.0.1)

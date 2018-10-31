@@ -67,13 +67,6 @@ class ReleaseCommand(Command):
             help="This is the first release. Register this package with PyPi, don't increment the version number, don't write changes to the changelog")
         
         self.parser.add_option(
-            '-g', '--register',
-            dest='register',
-            action='store_true',
-            default=False,
-            help="Force the package to be registered with PyPi.")
-        
-        self.parser.add_option(
             '-p', '--push',
             dest='push',
             action='store_true',
@@ -195,12 +188,9 @@ class ReleaseCommand(Command):
             if options.dry_run:
                 print("Would have updated PyPi")
             else:
-                print("Uploading to PyPi")
+                print("Uploading to PyPi using Twine")
                 print("(This may take a while, grab a cuppa. You've done a great job!)")
-                if options.initial or options.register:
-                    run_command("python setup.py register %s upload" % setup_args)
-                else:
-                    run_command("python setup.py %s upload" % setup_args)
+                run_command("twine upload dist/*")
         
         print("All done!")
         if not options.dry_run:

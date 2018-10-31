@@ -19,6 +19,7 @@ setup(
     install_requires=[
         "path.py>=10, <11",
         'wheel',
+        'twine'
     ],
     classifiers=[
         'Environment :: Console',

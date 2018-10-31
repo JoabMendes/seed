@@ -11,7 +11,7 @@ install:
   - pip install --pre $(python -c "import sys; print('coverage>4.0a1' if sys.version_info > (3,3) else 'coverage<4')")
   - "git config --global user.email 'user@test.com'"
   - "git config --global user.name 'Test User'"
-  - 'echo "[server-login]\nusername:testuser\npassword:testpass" > ~/.pypirc'
+  - 'echo "[pypi]\nusername = testuser\npassword = testpass" > ~/.pypirc'
   - "touch .nocleanup"
 script:
   coverage run -p --source=seed runtests.py
