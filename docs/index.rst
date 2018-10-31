@@ -61,8 +61,8 @@ You can also pass a few options to the ``create`` command. See the help for deta
 
 You can then do a release using::
 
-    # Do a dry run to make sure everything looks right
-    seed release --dry-run
+    # For the first release you must use --initial:
+    seed release --initial
 
     # Subsequent releases can be done via ONE of:
     seed release --bug    # A bug version pump (i.e. 0.0.1)
