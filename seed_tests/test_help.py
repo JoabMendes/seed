@@ -1,5 +1,3 @@
-from optparse import Values
-import os
 from seed.commands.help import HelpCommand
 from seed.exceptions import CommandError
 from seed_tests import BaseSeedTest
@@ -24,7 +22,8 @@ class TestCreateCommand(BaseSeedTest):
         )
 
     def test_help_command_missing(self):
-        self.assertRaises(CommandError, self.cmd.main,
+        self.assertRaises(
+            CommandError, self.cmd.main,
             args=['foo'],
             initial_options={}
         )

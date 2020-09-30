@@ -1,7 +1,6 @@
-from seed.commands import (Command, command_dict,
-                                     load_all_commands)
-from seed.exceptions import CommandError
 from seed.baseparser import parser
+from seed.commands import Command, command_dict, load_all_commands
+from seed.exceptions import CommandError
 
 
 class HelpCommand(Command):
@@ -9,7 +8,8 @@ class HelpCommand(Command):
     usage = '%prog'
     summary = 'Show available commands'
 
-    def run(self, options, args):
+    @staticmethod
+    def run(options, args): # noqa
         load_all_commands()
         if args:
             command = args[0]
@@ -18,7 +18,7 @@ class HelpCommand(Command):
             command = command_dict[command]
             command.parser.print_help()
             return
-        
+
         parser.print_help()
         print('\nCommands available:')
         commands = list(set(command_dict.values()))
@@ -28,10 +28,11 @@ class HelpCommand(Command):
                 continue
             print(('  %s: %s' % (command.name, command.summary)))
         return
-    
+
     def determine_paths(self, *args, **kwargs):
-        # Disable this functionality specially for the help command as 
+        # Disable this functionality specially for the help command as
         # it should be available anywhere.
         pass
+
 
 HelpCommand()

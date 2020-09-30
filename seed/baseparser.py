@@ -12,4 +12,3 @@ parser.add_option(
     help='Show help')
 
 parser.disable_interspersed_args()
-

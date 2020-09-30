@@ -1,16 +1,17 @@
 import os
 import os.path
 
-from seed.exceptions import CommandError
 from seed.commands import Command
+from seed.exceptions import CommandError
+
 
 class CreateCommand(Command):
     name = "create"
     summary = "Create a skeleton package in the current directory"
-    
+
     def __init__(self):
         super(CreateCommand, self).__init__()
-        
+
         self.parser.add_option(
             '-r', '--release',
             dest='version',
@@ -18,51 +19,73 @@ class CreateCommand(Command):
             default="0.1.0",
             type='str',
             help='The initial release version. Default is 0.1.0')
-        
+
         self.parser.add_option(
             '-d', '--dry-run',
             dest='dry_run',
             action='store_true',
             default=False,
-            help="Don't actually create anything, just show what will be created")
+            help=(
+                "Don't actually create anything, "
+                "just show what will be created"
+            )
+        )
+        self.dry_run = True
 
-    def determine_paths(self, package_name=None, create_package_dir=False, dry_run=False):
+    def determine_paths(
+            self, package_name=None, create_package_dir=False, dry_run=False
+    ):
         return super(CreateCommand, self).determine_paths(
-            package_name=package_name, create_package_dir=True, dry_run=dry_run)
-    
-    def run(self, options, args):
+            package_name=package_name,
+            create_package_dir=True, dry_run=dry_run
+        )
+
+    def run(self, options, args): # noqa
         version = options.version
-        
+
         self.dry_run = options.dry_run
-        
+
         self.create_dirs()
         self.create_files(version)
-        
+
         print("All done!")
         if not self.dry_run:
-            print("You'll need to make some changes to setup.py (see comments in setup.py),")
-            print("and putting something sensible in LICENSE.txt & README.rst ")
-            print("is probably a good idea. You can optionally install 'check-manifest' ")
-            print("to assist in creating a manifest if your packs includes static files.")
+            print(
+                "You'll need to make some changes to setup.py "
+                "(see comments in setup.py),"
+            )
+            print(
+                "and putting something sensible in LICENSE.txt & README.rst "
+            )
+            print(
+                "is probably a good idea. You can optionally install "
+                "'check-manifest' "
+            )
+            print(
+                "to assist in creating a manifest if your "
+                "packs includes static files."
+            )
 
     def create_dirs(self):
         dirs = [
-            self.project_dir / "bin", 
-            self.project_dir / "docs", 
+            self.project_dir / "bin",
+            self.project_dir / "docs",
             self.package_name,
         ]
-        
-        for dir in dirs:
-            if os.path.isdir(dir):
+
+        for directory in dirs:
+            if os.path.isdir(directory):
                 continue
-            elif os.path.exists(dir):
-                raise CommandError("File %s exists and is not a directory" % dir)
+            elif os.path.exists(directory):
+                raise CommandError(
+                    "File %s exists and is not a directory" % directory
+                )
             else:
                 if self.dry_run:
-                    print("Would have created directory %s" % dir)
+                    print("Would have created directory %s" % directory)
                 else:
-                    os.mkdir(dir, 0o755)
-    
+                    os.mkdir(directory, 0o755)
+
     def create_files(self, version):
         files = [
             (self.project_dir / "CHANGES.txt", TEMPLATE_CHANGES),
@@ -73,28 +96,31 @@ class CreateCommand(Command):
             (self.project_dir / "setup.py", TEMPLATE_SETUP),
             (self.package_dir / "__init__.py", TEMPLATE_INIT),
         ]
-        
+
         for file, template in files:
             if os.path.isfile(file):
                 continue
             elif os.path.exists(file):
-                raise CommandError("File %s exists and is not a regular file" % dir)
+                raise CommandError(
+                    "File %s exists and is not a regular file" % dir
+                )
             else:
                 content = template % {
                     "project_name": self.project_name,
                     "package_name": self.package_name,
                     "version": version,
                 }
-                
+
                 if self.dry_run:
                     print("Would have created file %s" % file)
                 else:
                     with open(file, "w+") as f:
                         f.write(content)
                     os.chmod(file, 0o644)
-        
+
         if not self.dry_run:
             os.chmod(self.project_dir / "setup.py", 0o755)
+
 
 CreateCommand()
 
@@ -162,7 +188,8 @@ setup(
     # Your name & email here
     author='',
     author_email='',
-    # If you had %(package_name)s.tests, you would also include that in this list
+    # If you had %(package_name)s.tests, you would also include that in this
+    # list
     packages=find_packages(),
     # Any executable scripts, typically in 'bin'. E.g 'bin/do-something.py'
     scripts=[],
@@ -174,9 +201,7 @@ setup(
     description='',
     long_description=open('README.rst').read() if exists("README.rst") else "",
     # Any requirements here, e.g. "Django >= 1.1.1"
-    install_requires=[
-        
-    ],
+    install_requires=[],
     # Ensure we include files from the manifest
     include_package_data=True,
 )

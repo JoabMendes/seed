@@ -1,5 +1,5 @@
-from optparse import Values
 import os
+
 from seed.commands.create import CreateCommand
 from seed_tests import BaseSeedTest
 
