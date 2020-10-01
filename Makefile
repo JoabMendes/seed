@@ -1,13 +1,13 @@
 dev-setup:
 	python setup.py develop
-	pip install
+	pip install .
 	pip install pytest coveralls collective.dist
 	pip install --pre $(python -c "import sys; print('coverage>4.0a1' if sys.version_info > (3,3) else 'coverage<4')")
 	touch .nocleanup
 
 ci-setup:
 	python setup.py develop
-	pip install
+	pip install .
 	pip install pytest coveralls collective.dist
 	pip install --pre $(python -c "import sys; print('coverage>4.0a1' if sys.version_info > (3,3) else 'coverage<4')")
 	git config --global user.email 'user@test.com'
