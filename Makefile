@@ -18,7 +18,7 @@ ci-setup:
 	touch .nocleanup
 
 test-coverage:
-	coverage run -p --source=seed runtests.py
+	coverage run -p --source=seed --omit=docs/*,seed/vcs/*,*__init__.py runtests.py
 
 test-style:
 	flake8 seed seed_tests --exclude=*/docs
