@@ -1,5 +1,6 @@
 dev-setup:
 	python setup.py develop
+	pip install flake8
 	pip install .
 	pip install pytest coveralls collective.dist
 	pip install --pre `python -c "import sys; print('coverage>4.0a1' if sys.version_info > (3,3) else 'coverage<4')"`
@@ -7,6 +8,7 @@ dev-setup:
 
 ci-setup:
 	python setup.py develop
+	pip install flake8
 	pip install .
 	pip install pytest coveralls collective.dist
 	pip install --pre `python -c "import sys; print('coverage>4.0a1' if sys.version_info > (3,3) else 'coverage<4')"`
